@@ -5,6 +5,11 @@ JavaScript/TypeScript file with the TypeScript Compiler API, resolves who calls 
 lays the result out with a Barnes–Hut force simulation, and renders it as a star map — files are stars,
 functions orbit them as planets, class methods are moons, and calls stream between them as light.
 
+**Live demo → [code-universe-woad.vercel.app](https://code-universe-woad.vercel.app)** · try
+[three.js `src`](https://code-universe-woad.vercel.app/u/mrdoob/three.js?ref=dev&path=src),
+[excalidraw](https://code-universe-woad.vercel.app/u/excalidraw/excalidraw), or
+[a traced call path](https://code-universe-woad.vercel.app/u/excalidraw/excalidraw?from=excalidraw-app%2FApp.tsx%23initializeScene&to=packages%2Fmath%2Fsrc%2Fpoint.ts%23pointFrom).
+
 ![three.js/src as a galaxy](docs/threejs-galaxy.jpg)
 
 > **한국어 요약** — GitHub 레포 URL을 넣으면 TypeScript Compiler API로 AST를 파싱하고 **타입 체커로 실제 호출 대상을
@@ -13,7 +18,7 @@ functions orbit them as planets, class methods are moons, and calls stream betwe
 > 개발자 도구입니다. 파일 = 항성, 함수 = 공전하는 행성(케플러 법칙 속도), 메서드 = 위성, 엣지는
 > **계층적 엣지 번들링(HEB)** 으로 GPU에서 큐빅 베지어로 그립니다. 순환 의존성(Tarjan SCC), 가장 많이 호출되는
 > 함수, 아무도 참조하지 않는 "암흑 물질"(dead code 후보)을 찾아주고, 두 함수 사이의 **최단 호출 경로**를
-> 추적해 혜성처럼 보여줍니다.
+> 추적해 혜성처럼 보여줍니다. 라이브 데모: https://code-universe-woad.vercel.app
 
 | | |
 |---|---|
@@ -116,6 +121,8 @@ Analyzer (`npm run analyze`, cold, this machine):
 | mrdoob/three.js › src (per-file mode) | 755 | 4.4k | 6.4k | 2.9 s |
 
 Parse + type-checked linking is 1.3–2.5 s even for the largest of these; the rest is network.
+On the deployed Vercel functions the same work runs ~2.5× slower (excalidraw 9.6 s, three.js `src` 9.7 s of
+server time) — still well inside the 60 s limit.
 
 Layout (`npm run bench:layout`) and rendering:
 
